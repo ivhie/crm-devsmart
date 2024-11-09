@@ -1,0 +1,14 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Admin LTE (which also loads Bootstrap)
+@import '~admin-lte/src/scss/adminlte';
+
+// for FontAwesome v6+
+$fa-font-path: '~fontawesome/webfonts';
+@import '~fontawesome/scss/fontawesome';
+@import '~fontawesome/scss/brands';
+@import '~fontawesome/scss/solid';
