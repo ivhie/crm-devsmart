@@ -115,13 +115,13 @@ export default function PropsectForm(){
         <div className="row">
         
 
-         <div className="card card-info card-outline mt-4 mb-4"> {/*begin::Header*/}
+         <div className="card card-info card-outline mt-4 mb-4">
             <div className="card-header">
               <div className="card-title">
                 {prospect.id && <h1>Update Propsect: {prospect.full_name}</h1>}
                 {!prospect.id && <h1>New Propsect</h1>}
               </div>
-            </div> {/*end::Header*/} {/*begin::Form*/}
+            </div> {/*end::Header*/} 
 
             {loading && (
               <div className="text-center mt-40 mb-40">
@@ -138,6 +138,7 @@ export default function PropsectForm(){
                 ))}
               </>
             }
+            {/*begin::Form*/}
             {!loading && (
 
                 <form className="needs-validation"   onSubmit={onSubmit}> {/*begin::Body*/}

@@ -60,32 +60,62 @@ export default function UserForm(){
       const OnCancel = ev => { navigate('/users') }
 
     return(
-    <>
-      {user.id && <h1>Update User: {user.name}</h1>}
-      {!user.id && <h1>New User</h1>}
-      <div className="card animated fadeInDown">
+      <div className="app-content"> {/*begin::Container*/}
+      <div className="container-fluid"> {/* Info boxes */}
+      <div className="row">
+
+
+       <div className="card card-info card-outline mt-4 mb-4">
+            <div className="card-header">
+              <div className="card-title">
+                {user.id && <h1>Update User: {user.name}</h1>}
+                {!user.id && <h1>New User</h1>}
+              </div>
+            </div> {/*end::Header*/} 
         {loading && (
-          <div className="text-center">
+          <div className="text-center mt-40 mb-40">
             Loading...
           </div>
         )}
         {errors &&
-          <div className="alert">
+          <>
             {Object.keys(errors).map(key => (
-              <p key={key}>{errors[key][0]}</p>
+               <div className="alert alert-danger">
+                  <span key={key}>{errors[key][0]}</span>
+                </div>
             ))}
-          </div>
+          </>
         }
         {!loading && (
-          <form onSubmit={onSubmit}>
-            <input value={user.name} onChange={ev => setUsers({...user, name: ev.target.value})} placeholder="Name"/>
-            <input value={user.email} onChange={ev => setUsers({...user, email: ev.target.value})} placeholder="Email"/>
-            <input type="password" onChange={ev => setUsers({...user, password: ev.target.value})} placeholder="Password"/>
-            <button className="btn">Save</button>&nbsp;
-            <button className="btn" onClick={OnCancel}>Cancel</button>
+          <form className="needs-validation"  onSubmit={onSubmit}>
+            <div className="card-body"> {/*begin::Row*/}
+              <div className="row g-3"> {/*begin::Col*/}
+                <div className="col-md-6"> 
+                   <label className="form-label">Name</label>
+                  <input className="form-control" value={user.name} onChange={ev => setUsers({...user, name: ev.target.value})} autoComplete="off" />
+                </div>
+                <div className="col-md-6">
+                  <label className="form-label">Email</label>
+                  <input className="form-control" value={user.email} onChange={ev => setUsers({...user, email: ev.target.value})} autoComplete="off" />
+                </div>
+                
+                <div className="col-md-6"> 
+                  <label className="form-label">Password</label>
+                  <input className="form-control" type="password" onChange={ev => setUsers({...user, password: ev.target.value})} autocomplete="new-password"/>
+                </div>
+                
+               
+              </div> {/*end::Row*/}
+            </div> {/*end::Body*/} {/*begin::Footer*/}
+            <div className="card-footer pt-4 pb-4"> <button className="btn btn-info" type="submit">Submit form</button> <input className="btn btn-danger" value="Cancel" type="submit" onClick={OnCancel}/> </div> {/*end::Footer*/}
           </form>
         )}
+        </div>
+
       </div>
-    </>
+      </div>
+      </div>
+
+   
     )
 }
