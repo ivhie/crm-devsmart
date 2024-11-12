@@ -12,6 +12,72 @@ use App\Models\Clients;
 class ProspectsController extends Controller
 {
     
+    public function get2(){
+        $clients = Clients::select('*');
+        $clients = $clients->where('is_deleted','=','no');
+        $clients = $clients->where('clientype','=','prospect');
+        $clients = $clients->orderBy('created_at', 'desc');
+        $clients = $clients->get();
+        //return json_encode(array('data'=>$clients,'menu'=>'clients'));
+
+        $data = array();
+        if ($clients)
+		{
+		      
+              foreach($clients as $k=>$client) {
+               
+			 $btn = '<a class="btn btn-info"  href="/prospects/'.$client->id.'"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>&nbsp;<a class="btn  btn-danger btn-md btn-delete"  data-id="'.$client->id.'" href="javascript:void(0)"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>';
+				
+				/*
+                array_push($data,array(
+						'id'=>$client->id,
+						'status'=>$client->status,
+                        'full_name'=>$client->full_name,
+                        'email'=>$client->email,
+                        'phone'=>$client->phone,
+                        'company'=>$client->company,
+                        'fb_link'=>$client->fb_link,
+                        'website_link'=>$client->website_link,
+                        'comments'=>$client->comments,
+                        //date('m/d/Y h:i A', strtotime($bid->created_at)),
+                        //isset($bid->bid_status)?$bid->bid_status:'-',
+						'action'=>$btn,
+						
+				));
+                */
+
+                array_push($data,array(
+                        $client->id,
+                        ucfirst($client->status),
+                        $client->full_name,
+                        $client->email,
+                        $client->phone,
+                        $client->company,
+                        $client->fb_link,
+                        $client->website_link,
+                        $client->comments,
+                        //date('m/d/Y h:i A', strtotime($bid->created_at)),
+                        //isset($bid->bid_status)?$bid->bid_status:'-',
+                        $btn,
+                        
+                ));
+
+              }
+			  
+              
+		}
+
+
+        //return  $data;
+       
+        return response()->json([
+            'menu' => array('link'=>'prospect'),
+            'data' => $data,
+        ]);
+  
+  }
+
+
     public function get(){
         $clients = Clients::select('*');
         $clients = $clients->where('is_deleted','=','no');
@@ -20,7 +86,7 @@ class ProspectsController extends Controller
         $clients = $clients->get();
         //return json_encode(array('data'=>$clients,'menu'=>'clients'));
         return response()->json([
-            'menu' => array('link'=>'clients'),
+            'menu' => array('link'=>'prospect'),
             'data' => $clients,
         ]);
   
@@ -110,8 +176,7 @@ class ProspectsController extends Controller
             $page = array(
                 'menu'=>'clients',
             );
-        //var_dump($products);
-        //return view('admin.bidding')->with('page',$page);
+     
 
     }
 

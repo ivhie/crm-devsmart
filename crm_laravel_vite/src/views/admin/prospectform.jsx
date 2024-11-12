@@ -1,8 +1,12 @@
+
+
 import { useEffect } from "react";
 import { useState } from "react";
 //import Select from "react-select";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosClient from "../../axiosClient";
+
+//import FlashMessage from 'react-flash-message';
 
 export default function PropsectForm(){
 
@@ -40,6 +44,7 @@ export default function PropsectForm(){
     });
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState(null);
+    const [flashmessage, setflashmessage] = useState('');
 
     if(id)
     {
@@ -65,7 +70,6 @@ export default function PropsectForm(){
             .then((res) => {
               //alert(res.data.msg);
               navigate('/prospects')
-              //alert('hereer444');
               alert(res.data.msg);
             })
             .catch(err => {
@@ -79,21 +83,16 @@ export default function PropsectForm(){
           axiosClient.post('/prospects', prospect)
             .then((res) => {
               
-              navigate('/prospects')
-              alert(res.data.msg);
-              //alert('no id');
-              //alert(prospect.clientype);
-              //alert(prospect.status);
-              //alert(prospect.full_name);
-              //console.log(prospect.full_name);
-              //alert(response['msg']);
-              //const response = res.response;
-              //alert(res.data.msg);
-              //document.getElementsByClassName('alert-danger').remove();
-              //removeElementsByClass('alert-danger');
+             
+             alert(res.data.msg);
+              //setflashmessage(res.data.msg);
+             navigate('/prospects')
+             // navigate.navigate('/prospects', {
+             //   setFlashmessage : 'tester',
+             // });
+             
               document.querySelector(".alert-danger").remove();
 
-              
             })
             .catch(err => {
               const response = err.response;

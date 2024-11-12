@@ -22,13 +22,17 @@ Route::middleware('auth:sanctum')->group(function() {
    
     /* Clients */
     Route::get('/clients',[ClientsController::class,'get']);
+    Route::get('/clients/{id}',[ClientsController::class,'getEdit']);
+    Route::post('/clients',[ClientsController::class,'store']);
+    Route::delete('/clients/{id}',[ClientsController::class,'delete']);
 
-   
+    /* Prospect */
     Route::get('/prospects',[ProspectsController::class,'get']);
+    Route::get('/prospects2',[ProspectsController::class,'get2']);
     Route::get('/prospects/{id}',[ProspectsController::class,'getEdit']);
     Route::post('/prospects',[ProspectsController::class,'store']);
     Route::delete('/prospects/{id}',[ProspectsController::class,'delete']);
-    //Route::put('/prospects',[ProspectsController::class,'store']);
+
 
 
     //Route::apiResource('/prospects',ClientsController::class);
