@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axiosClient from "../../axiosClient";
 
 //import FlashMessage from 'react-flash-message';
+import Editor from 'react-simple-wysiwyg';
 
 export default function PropsectForm(){
 
@@ -171,7 +172,8 @@ export default function PropsectForm(){
 
                       <div className="col-md-6"> 
                           <label htmlFor="validationCustom05" className="form-label">Credentials</label> 
-                          <textarea type="text" value={prospect.credentials} onChange={ev => setProspect({...prospect, credentials: ev.target.value})} className="form-control" id="" ></textarea>
+                          
+                          <Editor  value={prospect.credentials}  height="500px" onChange={ev => setProspect({...prospect, credentials: ev.target.value})} />
                       </div> {/*end::Col*/} {/*begin::Col*/}
                     
                     </div> {/*end::Row*/}

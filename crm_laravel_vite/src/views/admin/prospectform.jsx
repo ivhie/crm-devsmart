@@ -8,6 +8,9 @@ import axiosClient from "../../axiosClient";
 
 //import FlashMessage from 'react-flash-message';
 
+import Editor from 'react-simple-wysiwyg';
+
+
 export default function PropsectForm(){
 
   const optionStatus = [
@@ -39,7 +42,7 @@ export default function PropsectForm(){
         website_link: '',
         status: 'new',
         comments: '',
-        clientype: 'prospect'
+        clientype: 'prospect',
         
     });
     const [loading, setLoading] = useState(false);
@@ -242,8 +245,8 @@ export default function PropsectForm(){
                       </div> {/*end::Col*/} {/*begin::Col*/}
 
                       <div className="col-md-6"> 
-                          <label htmlFor="validationCustom05" className="form-label">Comment</label> 
-                          <textarea type="text" value={prospect.comments} onChange={ev => setProspect({...prospect, comments: ev.target.value})} className="form-control" id="" ></textarea>
+                          <label htmlFor="validationCustom05" className="form-label">Notes</label> 
+                          <Editor  value={prospect.comments}  height="500px" onChange={ev => setProspect({...prospect, comments: ev.target.value})} />
                       </div> {/*end::Col*/} {/*begin::Col*/}
                     
                     </div> {/*end::Row*/}

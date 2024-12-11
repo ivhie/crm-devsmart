@@ -1,3 +1,4 @@
+import React from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { useContext } from "react";
@@ -18,17 +19,14 @@ export default function DefaultLayout(){
     
 
     return (
-        <>
-         <div className="app-wrapper"> {/*begin::Header*/}
-          <Header />  {/* Header Nav */}
-          <Sidebarmenu />  {/* Sidebar Menu Nav */}
-         {/*begin::App Main*/}
-            <main className="app-main"> {/*begin::App Content Header*/}
+        
+       <div class="app-wrapper"> {/*begin::Header*/}
+            <Header />
+            <Sidebarmenu />
+            <main class="app-main"> {/*begin::App Content Header*/}
                 <Outlet />
-            </main> {/*end::App Main*/} 
-            
-                <Footer />  {/*begin::Footer*/}
-        </div> {/*end::App Wrapper*/} {/*begin::Script*/} {/*begin::Third Party Plugin(OverlayScrollbars)*/}
-        </>
+            </main> {/*end::App Main*/} {/*begin::Footer*/}
+            <Footer />
+        </div>
     )
 }

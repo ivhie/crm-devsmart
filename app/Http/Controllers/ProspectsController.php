@@ -46,6 +46,11 @@ class ProspectsController extends Controller
 				));
                 */
 
+                if($client->fb_link){
+
+                    $client->fb_link = '<a href="'.$client->fb_link.'" target="_blank">FB Link</a>';
+                }
+
                 array_push($data,array(
                         $client->id,
                         ucfirst($client->status),
@@ -113,7 +118,7 @@ class ProspectsController extends Controller
           } else {
                 echo json_encode(["msg"=>'Prospect failed to delete.']);
          }
-            
+         
       }
 
       
