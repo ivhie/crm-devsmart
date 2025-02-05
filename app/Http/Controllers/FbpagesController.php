@@ -32,6 +32,7 @@ class FbpagesController extends Controller
         if ($request->has('search')) {
             $search_this = $request->input('search');
             $fbpages = $fbpages->where('full_name','like', '%'.strtolower($search_this).'%');
+            $fbpages = $fbpages->orWhere('fb_link','like', '%'.strtolower($search_this).'%');
         }
         $fbpages =  $fbpages->orderBy('full_name', 'asc')->paginate(10);
 
@@ -79,20 +80,36 @@ class FbpagesController extends Controller
     
 
       public function store(Request $request) {
-            
+            /*
             $validate = $request->validate(
                 [ 'full_name' => ['required', 'max:105'],'fb_link' => ['required','unique:fbpages']  ],
                 [ 
                 'full_name.required' => 'FB name is required', 
                 'fb_link.required' => 'Link Required!',
                 'fb_link.unique' => 'FB Link is already exist!']
-            );
+            );*/
 
             if(request()->id){
+
+                $validate = $request->validate(
+                    [ 'full_name' => ['required', 'max:105']  ],
+                    [ 
+                    'full_name.required' => 'FB name is required']
+                );
+
                 //update data
                 $fbpage = Fbpages::find(request()->id);
                 $message = 'FBpage  edited successfully!';
             } else {
+
+                $validate = $request->validate(
+                    [ 'full_name' => ['required', 'max:105'],'fb_link' => ['required','unique:fbpages']  ],
+                    [ 
+                    'full_name.required' => 'FB name is required', 
+                    'fb_link.required' => 'Link Required!',
+                    'fb_link.unique' => 'FB Link is already exist!']
+                );
+
                 //create data
                 $fbpage = new Fbpages();
                 $message = 'FBpage  added successfully!';

@@ -22,6 +22,8 @@ export default function Fbpages(){
     const [activePage, setActivePage] = useState(1);
     const itemsPerPage = info.per_page;
     const totalItems = info.total;
+    //const [count, setCount] = useState(0);
+   // const increment = n => n + 1
 
     const [search, setSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
@@ -46,7 +48,7 @@ export default function Fbpages(){
         }
         axiosClient.delete(`/fbpage/${fbpages.id}`)
           .then((res) => {
-            getFbpages()
+            getFbpages(url+'/?page='+info.current_page)
             //alert(res.data.msg);
           })
       }
@@ -134,6 +136,7 @@ export default function Fbpages(){
             <table className="table"> 
               <thead>
               <tr>
+                <td>#</td>
                 <th>FB Name</th>
                 <th>Link</th>
                 <th>Comments</th>
@@ -143,7 +146,7 @@ export default function Fbpages(){
               {loading &&
                 <tbody>
                 <tr>
-                  <td colSpan="4" className="text-center  mt-40 mb-40">
+                  <td colSpan="5" className="text-center  mt-40 mb-40">
                     Loading...
                   </td>
                 </tr>
@@ -155,11 +158,16 @@ export default function Fbpages(){
               {!loading &&
                 <tbody>
                
-                {fbpages.map(u => (   
+                {
+              
+                
+                fbpages.map((u,index) => (   
                  
                 
-
+                
                   <tr key={u.id}>
+                     {/* add increment numbering */}
+                    <td>{ (index+1) + (info.current_page*info.per_page)-(info.per_page)}</td>
                     <td>{u.full_name}</td>
                     <td><a href={u.fb_link} target="_blank">{u.fb_link}</a></td>
                     <td>{u.comments}</td>
@@ -168,11 +176,15 @@ export default function Fbpages(){
                       &nbsp;
                       <button className="btn btn-danger" onClick={ev => onDeleteClick(u)}>Delete</button>
                     </td>
+                   
                   </tr>
+
+                  
+
                 ))} 
                 
                 
-                {fbpages=='' && <tr><td className="text-center" colSpan={4}>No records</td></tr>}
+                {fbpages=='' && <tr><td className="text-center" colSpan={5}>No records</td></tr>}
                 </tbody>
               } 
             </table>
