@@ -20,10 +20,10 @@ export default function DefaultLayout(){
 
     return (
         
-       <div class="app-wrapper"> {/*begin::Header*/}
+       <div className="app-wrapper"> {/*begin::Header*/}
             <Header />
             <Sidebarmenu />
-            <main class="app-main"> {/*begin::App Content Header*/}
+            <main className="app-main"> {/*begin::App Content Header*/}
                 <Outlet />
             </main> {/*end::App Main*/} {/*begin::Footer*/}
             <Footer />

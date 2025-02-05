@@ -25,6 +25,9 @@ import ClientForm from './views/admin/clientform.jsx'
 import Prospects from './views/admin/prospects.jsx';
 import ProspectForm from './views/admin/prospectform.jsx'
 
+import Fbpages from './views/admin/fbpages.jsx';
+import FbpageForm from './views/admin/fbpageform.jsx'
+
 //User Dashboard
 import Myaccount from './views/user/my-account.jsx';
 
@@ -56,6 +59,10 @@ const router = createBrowserRouter ([
             { path: '/prospects', element: <Prospects />},
             { path: '/prospects/new',element: <ProspectForm key="prospectCreate"/> },
             { path: '/prospects/:id',element: <ProspectForm key="prospectUpdate" /> },
+
+            { path: '/fbpages', element: <Fbpages />},
+            { path: '/fbpage/new',element: <FbpageForm key="fbpageCreate"/> },
+            { path: '/fbpage/:id',element: <FbpageForm key="fbpageUpdate" /> },
 
         ]
     },

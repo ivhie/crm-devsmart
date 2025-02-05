@@ -150,65 +150,7 @@ export default function Prospects(){
               </thead>
         </DataTable>
 
-            {/*
-            <table className="table"> 
-              <thead>
-              <tr>
-                <th>ID</th>
-                <th>Status</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Company</th>
-                <th>FB Link</th>
-                <th>Website Link</th>
-                <th>Notes</th>
-                <th>Actions</th>
-              </tr>
-              </thead>
-              {loading &&
-                <tbody>
-                <tr>
-                  <td colSpan="10" className="text-center  mt-40 mb-40">
-                    Loading...
-                  </td>
-                </tr>
-                </tbody>
-              }
-
-
-
-            
-              {!loading &&
-                <tbody>
-                {prospects.map(u => (   
-                 
-                
-
-                  <tr key={u.id}>
-                    <td>{u.id}</td>
-                    <td>{u.status.toUpperCase(0)}</td>
-                    <td>{u.full_name}</td>
-                    <td>{u.email}</td>
-                    <td>{u.phone}</td>
-                    <td>{u.company}</td>
-                    <td>{u.fb_link}</td>
-                    <td>{u.website_link}</td>
-                    <td>{u.comments}</td>
-                    <td>
-                      <Link className="btn btn-info " to={'/prospects/' + u.id}>Edit</Link>
-                      &nbsp;
-                      <button className="btn btn-danger" onClick={ev => onDeleteClick(u)}>Delete</button>
-                    </td>
-                  </tr>
-                ))} 
-                
-               
-                {prospects=='' && <tr><td className="text-center" colSpan={10}>No records</td></tr>}
-                </tbody>
-              } 
-            </table>
-            */}
+           
 
 
             </div>

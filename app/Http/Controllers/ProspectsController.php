@@ -26,7 +26,7 @@ class ProspectsController extends Controller
 		      
               foreach($clients as $k=>$client) {
                
-			 $btn = '<a class="btn btn-info"  href="/prospects/'.$client->id.'"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>&nbsp;<a class="btn  btn-danger btn-md btn-delete"  data-id="'.$client->id.'" href="javascript:void(0)"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>';
+			 $btn = '<a class="btn btn-info"  href="/prospects/'.$client->id.'"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>&nbsp;<a class="btn  btn-danger btn-md btn-delete"  data-id="'.$client->id.'"  onClick="{ev => onDeleteClick('.$client->id.')}"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>';
 				
 				/*
                 array_push($data,array(

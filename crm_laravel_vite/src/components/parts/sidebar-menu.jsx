@@ -43,6 +43,11 @@ export default function Sidebarmenu() {
                                 Prospects
                                 </p>
                             </Link>
+                            <Link className={ menu.link=="fbpages"?"nav-link active":"nav-link"}  to="/fbpages"> <i className="nav-icon bi bi-person-lines-fill" />
+                                <p>
+                                FB Pages
+                                </p>
+                            </Link>
                         
                             <Link className={ menu.link=="users"?"nav-link active":"nav-link"}  to="users">  <i className="nav-icon bi bi-people" />
                                 <p>
