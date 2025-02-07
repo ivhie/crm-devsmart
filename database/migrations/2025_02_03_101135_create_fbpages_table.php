@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('full_name');
             $table->string('fb_link')->nullable();
             $table->longText('comments')->nullable();
+            $table->string('province',100)->nullable();
+            $table->longText('tags')->nullable();
             $table->string('is_deleted',3)->default('no');
             $table->timestamps();
         });

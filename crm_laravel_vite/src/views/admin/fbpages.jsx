@@ -217,7 +217,7 @@ export default function Fbpages(){
                   activePage={activePage}
                   itemsCountPerPage={itemsPerPage}
                   totalItemsCount={totalItems}
-                  pageRangeDisplayed={5}
+                  pageRangeDisplayed={20}
                   onChange={handlePageChange}
                   innerClass="pagination justify-content-center"
                   itemClass="page-item"
