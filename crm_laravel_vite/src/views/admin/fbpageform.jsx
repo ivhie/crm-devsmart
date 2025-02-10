@@ -113,6 +113,19 @@ export default function FbpageForm(){
                           <input type="text" value={fbpage.fb_link} onChange={ev => setFbpage({...fbpage, fb_link: ev.target.value})} className="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" />
                         </div>
                       </div> {/*end::Col*/} {/*begin::Col*/}
+                      {/*
+                      <div className="col-md-6"> 
+                        <label htmlFor="validationCustomUsername" className="form-label">Location</label>
+                        <div className="input-group has-validation">
+                          <input type="text" value={fbpage.fb_link} onChange={ev => setFbpage({...fbpage, fb_link: ev.target.value})} className="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" />
+                        </div>
+                      </div> 
+                      <div className="col-md-6"> 
+                        <label htmlFor="validationCustomUsername" className="form-label">Tag</label>
+                        <div className="input-group has-validation">
+                          <input type="text" value={fbpage.fb_link} onChange={ev => setFbpage({...fbpage, fb_link: ev.target.value})} className="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" />
+                        </div>
+                      </div> */}
 
                       <div className="col-md-12"> 
                           <label htmlFor="validationCustom05" className="form-label">Notes</label> 

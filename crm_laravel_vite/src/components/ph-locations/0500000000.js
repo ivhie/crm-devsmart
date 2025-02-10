@@ -1,4 +1,4 @@
-provinces['0500000000'] = [
+export  const  Provinces = [
 {id: '0500500000', shop_reg:'st-luz', region:'0500000000', name: 'Albay'}, 
 {id: '0501600000', shop_reg:'st-luz', region:'0500000000', name: 'Camarines Norte'}, 
 {id: '0501700000', shop_reg:'st-luz', region:'0500000000', name: 'Camarines Sur'}, 
@@ -7,6 +7,8 @@ provinces['0500000000'] = [
 {id: '0506200000', shop_reg:'st-luz', region:'0500000000', name: 'Sorsogon'}
 ];
 
+
+/*
 province['0500500000'] = [
 {id: '0500506000', shop_reg:'st-luz', region:'0500000000', province:'0500500000',  name: 'City of Legazpi',
     barangays: [ 
@@ -40,5 +42,5 @@ province['0500500000'] = [
 {id: '0500516000', shop_reg:'st-luz', region:'0500000000', province:'0500500000', name: 'Santo Domingo'},
 {id: '0500518000', shop_reg:'st-luz', region:'0500000000', province:'0500500000', name: 'Tiwi'}
 ];
-
+*/
 

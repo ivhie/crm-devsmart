@@ -1,13 +1,14 @@
 
 import { useEffect } from "react";
 import { useState } from "react"
-import { Link, useLocation  } from "react-router-dom";
+import { Link, useLocation, useParams  } from "react-router-dom";
 import axiosClient from "../../axiosClient";
 import axios from "axios";
 import { useStateContext } from "../../contexts/contextprovider";
 import Pagination from "react-js-pagination";
+import Editor from 'react-simple-wysiwyg';
+import { Provinces }  from "//components/ph-location/0500000000";
 
-//import FlashMessage from 'react-flash-message';
 
 
 
@@ -22,16 +23,11 @@ export default function Fbpages(){
     const [activePage, setActivePage] = useState(1);
     const itemsPerPage = info.per_page;
     const totalItems = info.total;
-    //const [count, setCount] = useState(0);
-   // const increment = n => n + 1
+   // const [totalItems, setTotalItems] = useState(info.total);
 
     const [search, setSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
 
-     // Replace with actual total count
-    
-    //const prosepectStatus = useState('');
-    //const [url, setUrl] = useState('http://127.0.0.1:8000/api/fbpages');
     //const fmessage = useLocation();
     //let flash_message = location.fmessage;
    // console.log(flash_message);
@@ -56,14 +52,10 @@ export default function Fbpages(){
       
     const getFbpages = (url) => {
         //setLoading(true)
-        //alert(url);
-        //alert('ddfdf');    
-        
-        //alert('herer');
         axiosClient.get(url)
           .then(({ data }) => {
            // setLoading(false)
-            //alert(fbpages);
+           // alert(data.data);
             setFbpages(data.data)
             setInfo(data);
             //console.log('resopnse',data);
@@ -92,8 +84,6 @@ export default function Fbpages(){
         getFbpages(info.prev_page_url)
         window.scrollTo(0, 0);
       };
-
-     
         */}
      
     
@@ -106,12 +96,88 @@ export default function Fbpages(){
 
         const handleSearch = (e) => {
           setSearch(e.target.value);
-          //alert(e.target.value);
           console.log(search);
-          //setCurrentPage(1);
           getFbpages(url+'/?search='+e.target.value) // Reset to page 1 when searching
-      };
-  
+        };
+
+
+        /* form entry script */
+        const {id} = useParams();
+        const [errors, setErrors] = useState(null);
+        const [fbpage, setFbpage] = useState({
+            id: null,
+            full_name: '',
+            fb_link: '',
+            provice: '',
+            tags: '',
+            comments: ''
+        });
+
+        if(id)
+          {
+              useEffect(() => {
+                  setLoading(true)
+                  axiosClient.get(`/fbpage/${id}`)
+                    .then(({data}) => {
+                      setLoading(false)
+                      setFbpage(data)
+                    })
+                    .catch(() => {
+                      setLoading(false)
+                    })
+                }, [])
+          }
+
+          const onSubmit = ev => {
+          ev.preventDefault()
+            //new entry
+            axiosClient.post('/fbpage', fbpage)
+              .then((res) => {
+              
+              alert(res.data.msg);
+                //setflashmessage(res.data.msg);
+                setFbpage({  
+                  id: null,
+                  full_name: '',
+                  fb_link: '',
+                  provice: '',
+                  tags: '',
+                  comments: ''
+               });
+
+               document.querySelector(".alert-danger").remove();
+
+              //navigate('/fbpages')
+              // navigate.navigate('/prospects', {
+              //   setFlashmessage : 'tester',
+              // });
+              
+            
+
+              })
+              .catch(err => {
+                const response = err.response;
+                //console.log(response);
+                if (response && response.status === 422) {
+                  setErrors(response.data.errors)
+                }
+              })
+          
+          }
+           
+          // cancel add/edit prospect
+          const OnCancel = ev => {
+              setFbpage({  
+                id: null,
+                full_name: '',
+                fb_link: '',
+                provice: '',
+                tags: '',
+                comments: ''
+            });
+            document.querySelector(".alert-danger").remove();
+
+           }
      
 
     return(
@@ -122,23 +188,108 @@ export default function Fbpages(){
         <div className="row">
        
         <div className="card card-info card-outline mt-4 mt-b">
+           
+            <div className="card-body p-0 pt-10">
+                
+
+                <div className="card-header">
+                  <div className="card-title">
+                    {fbpage.id && <h1>Update FB page Entry: {fbpage.full_name}</h1>}
+                    {!fbpage.id && <h1>New FB page Entry</h1>}
+                  </div>
+                </div> {/*end::Header*/} 
+                  {errors &&
+                    <>
+                      {Object.keys(errors).map(key => (
+                        <div className="alert alert-danger">
+                          <span key={key}>{errors[key][0]}</span>
+                        </div>
+                      ))}
+                    </>
+                  }
+                <form className="needs-validation"   onSubmit={onSubmit}> {/*begin::Body*/}
+                  <div className="card-body"> {/*begin::Row*/}
+                    <div className="row g-3"> {/*begin::Col*/}
+                      <div className="col-md-6"> 
+                        <label htmlFor="validationCustom02" className="form-label">FB Name</label>
+                        <input type="text" value={fbpage.full_name} onChange={ev => setFbpage({...fbpage, full_name: ev.target.value})} className="form-control" />
+                      </div> {/*end::Col*/} {/*begin::Col*/}
+
+                      <div className="col-md-6"> 
+                        <label htmlFor="validationCustomUsername" className="form-label">FB Link</label>
+                        <div className="input-group has-validation">
+                          <input type="text" value={fbpage.fb_link} onChange={ev => setFbpage({...fbpage, fb_link: ev.target.value})} className="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" />
+                        </div>
+                      </div> {/*end::Col*/} {/*begin::Col*/}
+                      
+                      <div className="col-md-6"> 
+                        <label htmlFor="validationCustomUsername" className="form-label">Provice</label>
+                        <div className="input-group has-validation">
+                          <select onChange={ev => setProspect({...fbpage, provice: ev.target.value})}  className="form-select" id="validationCustom04">
+                            {
+                                Provinces.map((option) => (
+                                  <option value={option.value}  selected={option.value == fbpage.provice && 'selected'} >{option.label}</option>
+                                )) 
+                            }
+                          </select>
+                        </div>
+                      </div> 
+                      <div className="col-md-6"> 
+                        <label htmlFor="validationCustomUsername" className="form-label">Tag</label>
+                        <div className="input-group has-validation">
+                          <input type="text" value={fbpage.fb_link} onChange={ev => setFbpage({...fbpage, fb_link: ev.target.value})} className="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" />
+                        </div>
+                      </div>
+                    
+                    </div> {/*end::Row*/}
+                  </div> {/*end::Body*/} {/*begin::Footer*/}
+                  <div className="card-footer pt-4 pb-4"> <button className="btn btn-info" type="submit">Submit form</button> <input className="btn btn-danger" value="Cancel" type="submit" onClick={OnCancel}/> </div> {/*end::Footer*/}
+                </form>
+
             <div style={{display: 'flex', justifyContent: "space-between", alignItems: "center", marginTop: "10px"}}>
               <h1>FB Pages</h1>
               <div className="card-tools"><Link className="btn btn-warning" to="/fbpage/new">Add new</Link></div>
             </div> 
-            <div className="card-body p-0">
-            <input
-                type="text"
-                placeholder="Search Fb Name..."
-                value={search}
-                onChange={handleSearch}
-            />
+            <div className="row g-3">
+               <div className="col-md-3">
+                  <input
+                        type="text"
+                        placeholder="Search Provice..."
+                        value={search}
+                        className="form-control"
+                        onChange={handleSearch}
+                    />
+                </div>
+                <div className="col-md-3">
+                  <input
+                        type="text"
+                        placeholder="Search Tag..."
+                        value={search}
+                        className="form-control"
+                        onChange={handleSearch}
+                    />
+                </div>
+                <div className="col-md-3">
+                  <input
+                      type="text"
+                      placeholder="Search Fb Name..."
+                      value={search}
+                      className="form-control"
+                      onChange={handleSearch}
+                  />
+                </div>
+               
+
+            </div>
+           
             <table className="table"> 
               <thead>
               <tr>
                 <td>#</td>
                 <th>FB Name</th>
                 <th>Link</th>
+                <th>Tag</th>
+                <th>Provice</th>
                 <th>Comments</th>
                 <th>Actions</th>
               </tr>
@@ -146,7 +297,7 @@ export default function Fbpages(){
               {loading &&
                 <tbody>
                 <tr>
-                  <td colSpan="5" className="text-center  mt-40 mb-40">
+                  <td colSpan="7" className="text-center  mt-40 mb-40">
                     Loading...
                   </td>
                 </tr>
@@ -170,6 +321,8 @@ export default function Fbpages(){
                     <td>{ (index+1) + (info.current_page*info.per_page)-(info.per_page)}</td>
                     <td>{u.full_name}</td>
                     <td><a href={u.fb_link} target="_blank">{u.fb_link}</a></td>
+                    <td>{u.comments}</td>
+                    <td>{u.comments}</td>
                     <td>{u.comments}</td>
                     <td>
                       <Link className="btn btn-info " to={'/fbpage/' + u.id}>Edit</Link>
@@ -216,7 +369,7 @@ export default function Fbpages(){
               <Pagination
                   activePage={activePage}
                   itemsCountPerPage={itemsPerPage}
-                  totalItemsCount={totalItems}
+                  totalItemsCount={totalItems || 10}
                   pageRangeDisplayed={20}
                   onChange={handlePageChange}
                   innerClass="pagination justify-content-center"
